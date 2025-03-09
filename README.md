@@ -1,5 +1,7 @@
 # TaskWarrior MCP Server
 
+[![smithery badge](https://smithery.ai/badge/mcp-server-taskwarrior)](https://smithery.ai/server/mcp-server-taskwarrior)
+
 Node.js server implementing Model Context Protocol (MCP) for [TaskWarrior](https://taskwarrior.org/) operations.
 
 ## Features
@@ -61,6 +63,15 @@ Add this to your `claude_desktop_config.json`:
 
 ## Installation
 
+### Installing via Smithery
+
+To install TaskWarrior Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/mcp-server-taskwarrior):
+
+```bash
+npx -y @smithery/cli install mcp-server-taskwarrior --client claude
+```
+
+### Manual Installation
 ```bash
 npm install -g mcp-server-taskwarrior
 ```
