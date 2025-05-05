@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/awwaiid-mcp-server-taskwarrior-badge.png)](https://mseep.ai/app/awwaiid-mcp-server-taskwarrior)
+
 # TaskWarrior MCP Server
 
 Node.js server implementing Model Context Protocol (MCP) for [TaskWarrior](https://taskwarrior.org/) operations.
