@@ -155,6 +155,7 @@ const addTaskRequest = z.object({
   priority: z.enum(["H", "M", "L"]).optional(),
   project: z.string().regex(/^[a-zA-Z0-9._-]+$/).optional(),
   tags: z.array(z.string().regex(/^[@a-z0-9_-]+$/)).optional(),
+  depends: z.array(z.string().min(1, "Dependency must be a valid task ID or UUID")).optional(),
 });
 
 const modifyTaskRequest = z.object({
@@ -454,6 +455,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           for (let tag of parsed.data.tags) {
             task_args.push(`+${escapeShellArg(tag)}`);
           }
+        }
+        if (parsed.data.depends) {
+          task_args.push(`depends:${parsed.data.depends.join(',')}`);
         }
 
         const content = execSync(`task ${task_args.join(" ")}`, { maxBuffer: 1024 * 1024 * 10 }).toString().trim();
