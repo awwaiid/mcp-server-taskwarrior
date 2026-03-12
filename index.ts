@@ -15,7 +15,7 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { diffLines, createTwoFilesPatch } from 'diff';
 import { minimatch } from 'minimatch';
 
-import { execSync } from 'child_process';
+import { execFileSync } from 'child_process';
 
 // Schema definitions
 
@@ -123,16 +123,21 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         if (!parsed.success) {
           throw new Error(`Invalid arguments for get_next_tasks: ${parsed.error}`);
         }
-        let task_args = [];
-        if (parsed.data.tags) {
-          for(let tag of parsed.data.tags) {
-            task_args.push(`+${tag}`);
-          }
-        }
-        if (parsed.data.project) {
-            task_args.push(`project:${parsed.data.project}`);
-        }
-        const content = execSync(`task limit: ${task_args.join(" ")} next`, { maxBuffer: 1024 * 1024 * 10 }).toString().trim();
+        let task_args = ['limit:'];  
+        if (parsed.data.tags) {  
+          for(let tag of parsed.data.tags) {  
+            task_args.push(`+${tag}`);  
+          }  
+        }  
+        if (parsed.data.project) {  
+            task_args.push(`project:${parsed.data.project}`);  
+        }  
+        task_args.push('next');  
+          
+        const content = execFileSync('task', task_args, {   
+          encoding: 'utf8',  
+          maxBuffer: 1024 * 1024 * 10   
+        }).trim();
         return {
           content: [{ type: "text", text: content }],
         };
@@ -143,7 +148,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         if (!parsed.success) {
           throw new Error(`Invalid arguments for mark_task_done: ${parsed.error}`);
         }
-        const content = execSync(`task ${parsed.data.identifier} done`, { maxBuffer: 1024 * 1024 * 10 }).toString().trim();
+        const content = execFileSync('task', [parsed.data.identifier, 'done'], {   
+          encoding: 'utf8',  
+          maxBuffer: 1024 * 1024 * 10   
+        }).trim();
         return {
           content: [{ type: "text", text: content }],
         };
@@ -172,7 +180,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           }
         }
 
-        const content = execSync(`task add ${task_args.join(" ")}`, { maxBuffer: 1024 * 1024 * 10 }).toString().trim();
+        const content = execFileSync('task', ['add', ...task_args], {   
+          encoding: 'utf8',  
+          maxBuffer: 1024 * 1024 * 10   
+        }).trim();
         return {
           content: [{ type: "text", text: content }],
         };
