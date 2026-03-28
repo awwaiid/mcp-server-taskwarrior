@@ -2,6 +2,7 @@
 
 Node.js server implementing Model Context Protocol (MCP) for [TaskWarrior](https://taskwarrior.org/) operations.
 
+[![Trust Score](https://archestra.ai/mcp-catalog/api/badge/quality/awwaiid/mcp-server-taskwarrior)](https://archestra.ai/mcp-catalog/awwaiid__mcp-server-taskwarrior)
 <a href="https://glama.ai/mcp/servers/e8w3e1su1x">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/e8w3e1su1x/badge" alt="TaskWarrior Server MCP server" />
 </a>
