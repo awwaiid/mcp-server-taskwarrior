@@ -20,6 +20,10 @@ Node.js server implementing Model Context Protocol (MCP) for [TaskWarrior](https
 > sometimes renumbers tasks when new ones are added or removed. In the future
 > this should be more careful, using task UUID instead.
 
+## Hosted deployment
+
+A hosted deployment is available on [Fronteir AI](https://fronteir.ai/mcp/awwaiid-mcp-server-taskwarrior).
+
 ## API
 
 ### Tools
